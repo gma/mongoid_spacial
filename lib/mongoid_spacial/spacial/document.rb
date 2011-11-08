@@ -3,11 +3,13 @@ module Mongoid
     module Document
       extend ActiveSupport::Concern
 
-      included do
-        attr_accessor :geo
-        cattr_accessor :spacial_fields, :spacial_fields_indexed
-        @@spacial_fields = []
-        @@spacial_fields_indexed = []
+      def self.included(base)
+        base.class_eval do
+          attr_accessor :geo
+          cattr_accessor :spacial_fields, :spacial_fields_indexed
+          self.spacial_fields = []
+          self.spacial_fields_indexed = []
+        end
       end
 
       module ClassMethods #:nodoc:
